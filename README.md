@@ -1,3 +1,3 @@
 Code for:
-Boundary Decomposition for Nadir Objective Vector Estimation. NeurIPS 2024. (Accepted)
-Boundary Decomposition for Finding Nadir Objective Vector in Multi-Objective Discrete Optimization. AAAI 2025. (Under review)
+* [Boundary Decomposition for Nadir Objective Vector Estimation](https://openreview.net/forum?id=f829mkQMUg). NeurIPS 2024 (Accepted). This paper provides a general framework for approximating/exactly finding the nadir objective vector.
+* Boundary Decomposition for Finding Nadir Objective Vector in Multi-Objective Discrete Optimization. AAAI 2025 (Under review). Implementation for discrete problems. The proposed method is exact if an exact single-objective optimization solver is available.
