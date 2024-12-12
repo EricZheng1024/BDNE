@@ -1,4 +1,4 @@
-Codes for "Boundary Decomposition for Nadir Objective Vector Estimation" (NeurIPS 2024).
+Code for "Boundary Decomposition for Nadir Objective Vector Estimation" (NeurIPS 2024).
 
 We use `PlatEMO v3.5` to conduct experimental studies. The problems and algorithms involved in the experiments are located in "PlatEMO\Problems\MOPs" and "PlatEMO\Algorithms\MOEAs", respectively. Files unrelated to the experiments have been removed from PlatEMO.
 
