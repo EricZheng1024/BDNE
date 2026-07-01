@@ -101,8 +101,15 @@ for k = 1 : p
     % right_tilde = z_r1(C{k})*gain_norm./(z_r2(C{k})-z_r1(C{k}));
     % left_tilde = (1-alpha)*(f(C{k},:)*gain_norm./(z_r2(C{k})-z_r1(C{k}))) + alpha*(mean(f,1)*gain_norm./(z_r2(C{k})-z_r1(C{k})));  % 确保和norm_trans的运算顺序一致
     % right_tilde = z_r1(C{k})*gain_norm./(z_r2(C{k})-z_r1(C{k}));
-    left_tilde = minus_alpha_gain*(f(C{k},:)*gain_norm./(z_r2(C{k})-z_r1(C{k}))) + alpha_gain*(mean(f,1)*gain_norm./(z_r2(C{k})-z_r1(C{k})));  % 确保和norm_trans的运算顺序一致
-    right_tilde = z_r1(C{k})*gain_norm*(minus_alpha_gain+alpha_gain)./(z_r2(C{k})-z_r1(C{k}));
+    % left_tilde = minus_alpha_gain*(f(C{k},:)*gain_norm./(z_r2(C{k})-z_r1(C{k}))) + alpha_gain*(mean(f,1)*gain_norm./(z_r2(C{k})-z_r1(C{k})));  % 确保和norm_trans的运算顺序一致
+    % right_tilde = z_r1(C{k})*gain_norm*(minus_alpha_gain+alpha_gain)./(z_r2(C{k})-z_r1(C{k}));
+    
+    a_all = f * gain_norm ./ (z_r2 - z_r1);     % p×n，第 j 行 = f(j,:)*gain/denom_j
+    c_all = z_r1 * gain_norm ./ (z_r2 - z_r1);  % p×1，第 j 个 = z_r1(j)*gain/denom_j
+    a_mean = mean(a_all, 1);                    % 1×n，对全部 p 个目标（先归一化后）求均值
+    c_mean = mean(c_all, 1);                    % 标量
+    left_tilde  = minus_alpha_gain * a_all(C{k},:) + alpha_gain * a_mean;   % (p-1)×n，a_mean 广播到每行
+    right_tilde = minus_alpha_gain * c_all(C{k})   + alpha_gain * c_mean;   % (p-1)×1，c_mean 广播
 
     % Main loop
     while ~isempty(L) && cputime-start_time_k < runtime0_k-runtime_pre/p
